@@ -16,7 +16,7 @@ from sanic_cors import CORS
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
-DEBUG = os.environ.get("DEBUG", True)
+DEBUG = int(os.environ.get("DEBUG", 1))
 STATIC_PATH = f"{DIR_PATH}/static"
 VOYEUR_HOSTNAME = os.environ.get("FUZZY_HOSTNAME", "http://127.0.0.1:5666")
 
