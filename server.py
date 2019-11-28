@@ -3,6 +3,7 @@ import base64
 from PIL import Image
 from io import BytesIO
 import time
+import asyncio
 
 import logging
 
@@ -32,6 +33,21 @@ CORS(app)
 headers = {
     "Cache-Control": "max-age=5, public"
 }
+
+async def run_drawing():
+    while:
+        log("Started drawing")
+        await asyncio.sleep(10)
+
+        process = await asyncio.create_subprocess_exec(
+            "python","python_drawing.py", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await process.communicate()
+        log("DRAWING EXITED!!!, drawing exited")
+        log(stderr)
+
+
+app.add_task(run_drawing())
 
 @app.middleware('response')
 async def custom_banner(request, response):

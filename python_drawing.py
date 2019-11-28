@@ -8,12 +8,14 @@ from tqdm import tqdm
 # Y,X
 # REMEMBER!
 
+RUNNING_ON_SERVER = int(os.environ.get("RUNNING_ON_SERVER", 0))
+
 def main():
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
     cv2.resizeWindow('image', 1000,1000)
     filename_index = 0
     amount_of_paths = 50
-    save_rate = 1000
+    save_rate = 10000
 
     files_produced = sorted(os.listdir("output_python/"), reverse=True)
     if files_produced:
@@ -198,12 +200,13 @@ def main():
         rem = (filename_index % save_rate)
         total = (save_rate - rem)
         return total
-
+    
     pbar = tqdm(total=next_total())
     while True:
-        key = cv2.waitKey(1)
-        if key == 113:
-            break
+        if not RUNNING_ON_SERVER:
+            key = cv2.waitKey(1)
+            if key == 113:
+                break
         new_display = cv2.addWeighted(display_image, 0.95, white, 0.05, 0.0)
 
         new_display = cv2.addWeighted(new_display, 0.9, save_image, 0.1, 0.0)
@@ -227,15 +230,16 @@ def main():
         if filename_index % save_rate == 0:
             cv2.imwrite("output_python/{:012d}.jpg".format(filename_index), save_image)
             pbar = tqdm(total=next_total())
+            if RUNNING_ON_SERVER:
+                cv2.imwrite("static/images/tmp_debug.jpg".format(filename_index), display_image)
+                os.rename("static/images/tmp_debug.jpg", "static/images/debug.jpg")
         average_x = int(sum([item[1] for item in positions]) / len(positions))
         average_y = int(sum([item[0] for item in positions]) / len(positions))
         average_position.clear()
         average_position.extend([average_y, average_x])
         draw_circle_on_display(average_y, average_x, 20, (0, 255, 0))
-        if filename_index % 5 == 0:
+        if not RUNNING_ON_SERVER and filename_index % 5 == 0:
             cv2.imshow('image', display_image)
-
-
     
 if __name__ == "__main__":
     main()
