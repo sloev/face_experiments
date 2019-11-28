@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+    fuzzy:
+      build: .
+      env_file:
+        - .env
+      container_name: fuzzy
+      ports:
+        - "5666:80"
+      restart: always
