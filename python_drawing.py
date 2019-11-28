@@ -4,20 +4,22 @@ import math
 import os
 import numpy as np
 from tqdm import tqdm
+import logging
 
 # Y,X
 # REMEMBER!
 
-RUNNING_ON_SERVER = int(os.environ.get("RUNNING_ON_SERVER", 0))
+RUNNING_ON_SERVER = int(os.environ.get("RUNNING_ON_SERVER", 1))
 
 def main():
-    cv2.namedWindow('image', cv2.WINDOW_NORMAL)
-    cv2.resizeWindow('image', 1000,1000)
+    if not RUNNING_ON_SERVER:
+        cv2.namedWindow('image', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('image', 1000,1000)
     filename_index = 0
     amount_of_paths = 50
     save_rate = 10000
 
-    files_produced = sorted(os.listdir("output_python/"), reverse=True)
+    files_produced = sorted([f for f in os.listdir("output_python/") if f.endswith('.jpg')], reverse=True)
     if files_produced:
         filename_index = int(files_produced[0].split(".")[0])
         print(f"found continue file: {filename_index}.jpg")
@@ -225,7 +227,7 @@ def main():
         pbar.update(1)
         if filename_index % 50 == 0:
             resized = cv2.resize(save_image, (1000,1000), interpolation = cv2.INTER_AREA)
-            cv2.imwrite("static/images/tmp.jpg".format(filename_index), save_image)
+            cv2.imwrite("static/images/tmp.jpg".format(filename_index), resized)
             os.rename("static/images/tmp.jpg", "static/images/thumbnail.jpg")
         if filename_index % save_rate == 0:
             cv2.imwrite("output_python/{:012d}.jpg".format(filename_index), save_image)
@@ -242,4 +244,7 @@ def main():
             cv2.imshow('image', display_image)
     
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except:
+        logging.exception("error")

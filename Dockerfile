@@ -7,6 +7,7 @@ ADD requirements.txt .
 RUN pip install -r requirements.txt
 ADD server.py .
 ADD python_drawing.py .
+ADD static/ static/
 
 EXPOSE 80
 CMD ["python", "server.py"]

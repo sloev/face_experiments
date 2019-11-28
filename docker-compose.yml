@@ -9,3 +9,6 @@ services:
       ports:
         - "5666:80"
       restart: always
+      volumes:
+        - "./processed:/usr/src/app/processed"
+        - "./output_python:/usr/src/app/output_python"

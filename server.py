@@ -1,6 +1,5 @@
 import os
 import base64
-from PIL import Image
 from io import BytesIO
 import time
 import asyncio
@@ -19,8 +18,9 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = os.environ.get("DEBUG", True)
 STATIC_PATH = f"{DIR_PATH}/static"
-VOYEUR_HOSTNAME = os.environ.get("HOSTNAME", "http://0.0.0.0:5666")
+VOYEUR_HOSTNAME = os.environ.get("FUZZY_HOSTNAME", "http://127.0.0.1:5666")
 
+print("hostname", VOYEUR_HOSTNAME)
 INDEX_HTML = (
     open(STATIC_PATH + "/index.html").read().replace("HOSTNAME", VOYEUR_HOSTNAME)
 )
@@ -35,7 +35,7 @@ headers = {
 }
 
 async def run_drawing():
-    while:
+    while True:
         log("Started drawing")
         await asyncio.sleep(10)
 
@@ -59,11 +59,11 @@ async def custom_banner(request):
 
 @app.route('/static/images/thumbnail.jpg')
 async def handle_request(request):
-    return await response.file('static/images/thumbnail.jpg')
+    return await response.file(f'{STATIC_PATH}/images/thumbnail.jpg')
 
 @app.route('/static/images/debug.jpg')
 async def handle_request(request):
-    return await response.file('static/images/debug.jpg')
+    return await response.file(f'{STATIC_PATH}/images/debug.jpg')
 
 @app.route("/")
 def home(request):
@@ -71,7 +71,7 @@ def home(request):
 
 def sanic_main():
     try:
-        app.run(host="0.0.0.0", port=5666, debug=DEBUG)
+        app.run(host="0.0.0.0", port=80, debug=DEBUG)
     except:
         logging.exception("error")
         pass
