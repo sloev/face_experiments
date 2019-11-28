@@ -1,0 +1,9 @@
+processed/
+originals/
+output/
+output_frames/
+output_python/
+__pycache__
+staging/
+sketch/
+video_frames/
