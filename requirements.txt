@@ -1,0 +1,5 @@
+opencv-python
+numpy
+sanic
+sanic_cors
+tqdm
