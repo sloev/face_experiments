@@ -61,6 +61,10 @@ async def custom_banner(request):
 async def handle_request(request):
     return await response.file('static/images/thumbnail.jpg')
 
+@app.route('/static/images/debug.jpg')
+async def handle_request(request):
+    return await response.file('static/images/debug.jpg')
+
 @app.route("/")
 def home(request):
     return response.html(INDEX_HTML)
