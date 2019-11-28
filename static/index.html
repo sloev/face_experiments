@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fuzzy Portrait</title>
+        <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+        <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+        <style>
+
+        h2 {
+            font: 200 50px/1.2 'Vollkorn', Helvetica, sans-serif;
+            text-align: center;
+            color: #000;
+        }
+        h3 {
+            font: 200 10px/1.2 'Vollkorn', Helvetica, sans-serif;
+            text-align: center;
+            color: #000;
+        }
+        .centerThis {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 800px;
+        }
+        a {
+            color: black;
+        }
+        </style>
+
+        <script type="text/javascript">
+            window.addEventListener("DOMContentLoaded", function()
+            {
+
+                var imageObj = new Image();
+                imageObj.onload = function() {
+                    drawOnCanvas();
+                    setTimeout(timedRefresh, 2000);
+                }
+                // set src AFTER assigning load
+                imageObj.src = "HOSTNAME/static/images/thumbnail.jpg?dummy=" + Math.random();
+
+                function timedRefresh() {
+                    imageObj.src = "HOSTNAME/static/images/thumbnail.jpg?dummy=" + Math.random();
+                    //drawOnCanvas(); //flicker was due this line as it try to draw image load so i commented it... now it should work... 
+                }
+                var background = new Image();
+
+                function drawOnCanvas() {
+                    var canvas = document.getElementById("canvas");
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = 800;
+                    canvas.height = 800;
+
+                    ctx.drawImage(imageObj, 0, 0, 800, 800);
+                    console.log("loaded image", Math.random())
+                    document.getElementById("email").href="mailto:johannes.valbjorn+fuzzyportrait_" + moment().format("Y[_]MM[_]DD[_]HH[_]MM[_]") + "@gmail.com"; 
+                    document.getElementById("updatedLast").innerHTML = "Last updated " + moment().fromNow();
+                }
+            });
+
+        </script>
+        
+    </head>
+    <body>
+        <h2>Fuzzy Portrait</h2>
+        <h3>By <a href="https://sloev.github.io">Sloev</a>  -  <a id="email" target="_blank" href="mailto:johannes.valbjorn+fuzzyportrait@gmail.com">email here</a> to order a hi-res print
+            <br>A portrait of the common face, continously drawn by a robot<br><div id="updatedLast">Last updated a few seconds ago</div></h3>
+        <div class="centerThis">
+            <canvas id="canvas" style="width:800px;height:800px;"></canvas>
+        </div>
+    </body>
+</html>
