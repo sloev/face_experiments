@@ -221,8 +221,8 @@
                 var imageObj = new Image();
                 imageObj.onload = function() {
                     var canvas = document.createElement("canvastemp");
-                    canvas.width =this.width;
-                    canvas.height =this.height;
+                    canvas.width = this.width;
+                    canvas.height = this.height;
 
                     var ctx = canvas.getContext("2d");
                     ctx.drawImage(this, 0, 0);
