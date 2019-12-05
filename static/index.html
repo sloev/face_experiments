@@ -242,6 +242,7 @@
                     if (newMd5 !== lastMd5){
                         updatedLast = moment();
                         lastMd5 = newMd5
+                        console.log("Got new image")
                     }
 
                     ctx.drawImage(imageObj, 0, 0, 800, 800);
