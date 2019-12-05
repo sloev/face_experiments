@@ -29,6 +29,8 @@
         </style>
 
         <script type="text/javascript">
+            window.addEventListener("DOMContentLoaded", function()
+            {
             function md5cycle(x, k) {
             var a = x[0], b = x[1], c = x[2], d = x[3];
 
@@ -213,8 +215,7 @@
             return (msw << 16) | (lsw & 0xFFFF);
             }
             }
-            window.addEventListener("DOMContentLoaded", function()
-            {
+
                 var md5 = 0;
                 var updatedLast = moment();
                 var imageObj = new Image();
