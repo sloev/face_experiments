@@ -216,7 +216,7 @@
             }
             }
 
-                var md5 = 0;
+                var lastMd5 = 0;
                 var updatedLast = moment();
                 var imageObj = new Image();
                 imageObj.onload = function() {
@@ -239,9 +239,9 @@
                     canvas.height = 800;
                     var imageData = canvas.toDataURL('image/png').replace(/data:image\/[a-z]+;base64,/, '');
                     var newMd5 = md5(imageData);
-                    if (newMd5 !== md5){
+                    if (newMd5 !== lastMd5){
                         updatedLast = moment();
-                        md5 = newMd5
+                        lastMd5 = newMd5
                     }
 
                     ctx.drawImage(imageObj, 0, 0, 800, 800);
