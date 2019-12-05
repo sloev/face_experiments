@@ -233,12 +233,8 @@
                 var background = new Image();
 
                 function drawOnCanvas() {
-                    var canvas = document.getElementById("canvas");
-                    var ctx = canvas.getContext("2d");
-                    canvas.width = 800;
-                    canvas.height = 800;
                     var canvas = document.createElement("canvas");
-                    console.log(canvas)
+
                     canvas.width = imageObj.width;
                     canvas.height = imageObj.height;
 
@@ -256,6 +252,10 @@
                     }else{
                         console.log("used cached image")
                     }
+                    var canvas = document.getElementById("canvas");
+                    var ctx = canvas.getContext("2d");
+                    canvas.width = 800;
+                    canvas.height = 800;
 
                     ctx.drawImage(imageObj, 0, 0, 800, 800);
                     console.log("loaded image", Math.random())
