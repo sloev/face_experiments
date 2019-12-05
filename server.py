@@ -31,7 +31,7 @@ CORS(app)
 #app.static("/static", STATIC_PATH)
 
 headers = {
-    "Cache-Control": "max-age=5, public"
+    "Cache-Control": "max-age=1, public"
 }
 
 async def run_drawing():
