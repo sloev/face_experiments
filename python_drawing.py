@@ -193,10 +193,10 @@ def main():
     positions.extend([[0,0] for i in range(amount_of_paths)])
 
     try:
-        save_image = cv2.imread("output_python/{:012d}.jpg".format(filename_index))
+        save_image = cv2.imread("output_python/{:015d}.jpg".format(filename_index))
         assert save_image is not None
     except:
-        print("No file found with name: output_python/{:012d}.jpg".format(filename_index))
+        print("No file found with name: output_python/{:015d}.jpg".format(filename_index))
         save_image = 255 * np.ones(shape=[height, width, 3], dtype=np.uint8)
     
     def next_total():
@@ -235,7 +235,7 @@ def main():
             cv2.imwrite("static/images/tmp.jpg".format(filename_index), resized)
             os.rename("static/images/tmp.jpg", "static/images/thumbnail.jpg")
         if filename_index % save_rate == 0:
-            cv2.imwrite("output_python/{:012d}.jpg".format(filename_index), save_image)
+            cv2.imwrite("output_python/{:015d}.jpg".format(filename_index), save_image)
             pbar = tqdm(total=next_total())
             if RUNNING_ON_SERVER:
                 cv2.imwrite("static/images/tmp_debug.jpg".format(filename_index), display_image)
