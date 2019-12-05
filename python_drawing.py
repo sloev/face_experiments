@@ -5,6 +5,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 import logging
+import time
 
 # Y,X
 # REMEMBER!
@@ -209,6 +210,10 @@ def main():
             key = cv2.waitKey(1)
             if key == 113:
                 break
+
+        if time.time() % 60 == 0:
+            save_image = np.clip(save_image + 4, 0, 255)
+
         new_display = cv2.addWeighted(display_image, 0.95, white, 0.05, 0.0)
 
         new_display = cv2.addWeighted(new_display, 0.9, save_image, 0.1, 0.0)
