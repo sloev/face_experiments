@@ -231,7 +231,7 @@ def main():
         filename_index += 1
         pbar.update(1)
         if filename_index % 50 == 0:
-            resized = cv2.resize(save_image, (1000,1000), interpolation = cv2.INTER_AREA)
+            resized = cv2.resize(save_image, (1600,1600), interpolation = cv2.INTER_AREA)
             cv2.imwrite("static/images/tmp.jpg".format(filename_index), resized)
             os.rename("static/images/tmp.jpg", "static/images/thumbnail.jpg")
         if filename_index % save_rate == 0:
