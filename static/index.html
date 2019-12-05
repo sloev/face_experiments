@@ -220,24 +220,6 @@
                 var updatedLast = moment();
                 var imageObj = new Image();
                 imageObj.onload = function() {
-                    var canvas = document.createElement("canvastemp");
-                    canvas.width = this.width;
-                    canvas.height = this.height;
-
-                    var ctx = canvas.getContext("2d");                    
-                    ctx.drawImage(this, 0, 0);
-
-                    var dataURL = canvas.toDataURL("image/png");
-
-                    var imageData = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-                    var newMd5 = md5(imageData);
-                    if (newMd5 !== lastMd5){
-                        updatedLast = moment();
-                        lastMd5 = newMd5
-                        console.log("Got new image")
-                    }else{
-                        console.log("used cached image")
-                    }
                     drawOnCanvas();
                     setTimeout(timedRefresh, 2000);
                 }
@@ -255,6 +237,24 @@
                     var ctx = canvas.getContext("2d");
                     canvas.width = 800;
                     canvas.height = 800;
+                    var canvas = document.createElement("canvastemp");
+                    canvas.width = imageObj.width;
+                    canvas.height = imageObj.height;
+
+                    var ctx = canvas.getContext("2d");                    
+                    ctx.drawImage(imageObj, 0, 0);
+
+                    var dataURL = canvas.toDataURL("image/png");
+
+                    var imageData = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                    var newMd5 = md5(imageData);
+                    if (newMd5 !== lastMd5){
+                        updatedLast = moment();
+                        lastMd5 = newMd5
+                        console.log("Got new image")
+                    }else{
+                        console.log("used cached image")
+                    }
 
                     ctx.drawImage(imageObj, 0, 0, 800, 800);
                     console.log("loaded image", Math.random())
