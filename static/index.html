@@ -260,7 +260,7 @@
                     ctx.drawImage(imageObj, 0, 0, 800, 800);
 
                     document.getElementById("email").href="mailto:johannes.valbjorn+fuzzyportrait_" + moment().format("Y[_]MM[_]DD[_]HH[_]MM[_]") + "@gmail.com"; 
-                    document.getElementById("updatedLast").innerHTML = "Last updated " + moment().diff(updatedLast, 'seconds');
+                    document.getElementById("updatedLast").innerHTML = "Last updated " + moment().diff(updatedLast, 'seconds') + " seconds ago";
                 }
             });
 
