@@ -214,6 +214,7 @@ def main():
     
     pbar = tqdm(total=next_total())
     last_time = time.time() + 3600
+    last_time_save_display = time.time()
 
     last_selection_shuffle = time.time() + random.randint(1000, 5000)
     while True:
@@ -251,7 +252,8 @@ def main():
            
         filename_index += 1
         pbar.update(1)
-        if filename_index % 50 == 0:
+        if last_time_save_display < time.time():
+            last_time_save_display = time.time() + 2
             resized = cv2.resize(save_image, (1600,1600), interpolation = cv2.INTER_AREA)
             cv2.imwrite("static/images/tmp.jpg".format(filename_index), resized)
             os.rename("static/images/tmp.jpg", "static/images/thumbnail.jpg")
