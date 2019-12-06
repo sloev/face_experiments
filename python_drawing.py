@@ -211,8 +211,8 @@ def main():
             if key == 113:
                 break
 
-        if time.time() % 60 == 0:
-            save_image = np.clip(save_image + 4, 0, 255)
+        if time.time() % 2 == 0:
+            save_image = np.clip(save_image + 50, 0, 255)
 
         new_display = cv2.addWeighted(display_image, 0.95, white, 0.05, 0.0)
 
