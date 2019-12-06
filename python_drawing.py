@@ -211,7 +211,7 @@ def main():
             if key == 113:
                 break
 
-        if time.time() % 2 == 0:
+        if int(time.time()) % 2 == 0:
             increase = 50
             save_image = np.where((255 - save_image) < increase, 255, save_image + increase)
 
