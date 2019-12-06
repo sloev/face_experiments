@@ -211,8 +211,8 @@ def main():
             if key == 113:
                 break
 
-        if int(time.time()) % 2 == 0:
-            increase = 50
+        if int(time.time()) % 3600 == 0:
+            increase = 10
             save_image = np.where((255 - save_image) < increase, 255, save_image + increase)
 
         new_display = cv2.addWeighted(display_image, 0.95, white, 0.05, 0.0)
