@@ -257,12 +257,14 @@ def main():
             resized = cv2.resize(save_image, (1600,1600), interpolation = cv2.INTER_AREA)
             cv2.imwrite("static/images/tmp.jpg".format(filename_index), resized)
             os.rename("static/images/tmp.jpg", "static/images/thumbnail.jpg")
+            if RUNNING_ON_SERVER:
+                resized = cv2.resize(display_image, (1600,1600), interpolation = cv2.INTER_AREA)
+                cv2.imwrite("static/images/tmp_debug.jpg".format(filename_index), resized)
+                os.rename("static/images/tmp_debug.jpg", "static/images/debug.jpg")
         if filename_index % save_rate == 0:
             cv2.imwrite("output_python/{:015d}.jpg".format(filename_index), save_image)
             pbar = tqdm(total=next_total())
-            if RUNNING_ON_SERVER:
-                cv2.imwrite("static/images/tmp_debug.jpg".format(filename_index), display_image)
-                os.rename("static/images/tmp_debug.jpg", "static/images/debug.jpg")
+
         average_x = int(sum([item[1] for item in positions]) / len(positions))
         average_y = int(sum([item[0] for item in positions]) / len(positions))
         average_position.clear()
