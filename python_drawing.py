@@ -205,13 +205,15 @@ def main():
         return total
     
     pbar = tqdm(total=next_total())
+    last_time = time.time()
     while True:
         if not RUNNING_ON_SERVER:
             key = cv2.waitKey(1)
             if key == 113:
                 break
 
-        if int(time.time()) % 3600 == 0:
+        if time.time() - last_time > 3600:
+            last_time = time.time()
             increase = 10
             save_image = np.where((255 - save_image) < increase, 255, save_image + increase)
 
