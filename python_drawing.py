@@ -212,7 +212,8 @@ def main():
                 break
 
         if time.time() % 2 == 0:
-            save_image = np.clip(save_image + 50, 0, 255)
+            increase = 50
+            save_image = np.where((255 - save_image) < increase, 255, save_image + increase)
 
         new_display = cv2.addWeighted(display_image, 0.95, white, 0.05, 0.0)
 
