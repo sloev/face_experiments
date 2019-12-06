@@ -18,7 +18,7 @@ def main():
         cv2.resizeWindow('image', 1000,1000)
     filename_index = 0
     amount_of_paths = 50
-    save_rate = 10000
+    save_rate = 100000
 
     files_produced = sorted([f for f in os.listdir("output_python/") if f.endswith('.jpg')], reverse=True)
     if files_produced:
