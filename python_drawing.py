@@ -38,6 +38,13 @@ def main():
     display_image = 255 * np.ones(shape=[height, width, 3], dtype=np.uint8)
     white = 255 * np.ones(shape=[height, width, 3], dtype=np.uint8)
 
+    current_selection = []
+
+    def get_selection():
+        current_selection = [random.int(0, len(source_images) for i in range(5))]
+
+
+
     save_image = None
 
     def set_pixel_bgr(y,x,bgr):
@@ -188,6 +195,8 @@ def main():
         if filename.endswith('.jpg'):
             print(filename)
             source_images.append(cv2.imread(input_dir + filename))
+
+    get_selection()
     
     paths = [Path(i) for i in range(amount_of_paths)]
     positions.extend([[0,0] for i in range(amount_of_paths)])
@@ -205,15 +214,17 @@ def main():
         return total
     
     pbar = tqdm(total=next_total())
-    last_time = time.time()
+    last_time = time.time() + 3600
+
+    last_selection_shuffle = time.time() + random.randint(1000, 5000)
     while True:
         if not RUNNING_ON_SERVER:
             key = cv2.waitKey(1)
             if key == 113:
                 break
 
-        if time.time() - last_time > 3600:
-            last_time = time.time()
+        if time.time() < last_time:
+            last_time = time.time() + 3600
             increase = 10
             save_image = np.where((255 - save_image) < increase, 255, save_image + increase)
 
@@ -227,9 +238,16 @@ def main():
         for p_index, p in enumerate(paths):
             if not next(p):
                 lifespan = random.randint(5, 20000)
-                img = random.choice(source_images)
+                img_index = random.choice(current_selection)
+
+                img = source_images[img_index]
+
                 p.setup(lifespan, img)
                 next(p)
+        
+        if last_selection_shuffle < time.time():
+            last_selection_shuffle = time.time() + random.randint(1000, 5000)
+            get_selection()
            
         filename_index += 1
         pbar.update(1)
