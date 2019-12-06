@@ -10,7 +10,7 @@ import time
 # Y,X
 # REMEMBER!
 
-RUNNING_ON_SERVER = int(os.environ.get("RUNNING_ON_SERVER", 0))
+RUNNING_ON_SERVER = int(os.environ.get("RUNNING_ON_SERVER", 1))
 
 def main():
     if not RUNNING_ON_SERVER:
