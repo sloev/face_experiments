@@ -18,7 +18,7 @@ def main():
         cv2.resizeWindow('image', 1000,1000)
     filename_index = 0
     amount_of_paths = 50
-    save_rate = 1000
+    save_rate = 10000
 
     files_produced = sorted([f for f in os.listdir("output_python/") if f.endswith('.jpg')], reverse=True)
     if files_produced:
@@ -222,7 +222,7 @@ def main():
             if key == 113:
                 break
 
-        if time.time() < last_time:
+        if last_time < time.time():
             last_time = time.time() + 3600
             increase = 10
             save_image = np.where((255 - save_image) < increase, 255, save_image + increase)
@@ -238,6 +238,7 @@ def main():
             if not next(p):
                 lifespan = random.randint(5, 20000)
                 img_index = random.choice(current_selection)
+                print('loading new img', img_index)
 
                 img = source_images[img_index]
 
