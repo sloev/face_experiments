@@ -42,7 +42,7 @@ def main():
 
     def get_selection():
         current_selection.clear()
-        current_selection.extend([random.int(0, len(source_images) for i in range(5))])
+        current_selection.extend([random.randint(0, len(source_images) for i in range(5))])
 
     save_image = None
 
